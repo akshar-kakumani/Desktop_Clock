@@ -37,6 +37,14 @@ public class SystemTrayManager {
                 opacityMenu.add(item);
             }
             
+            MenuItem timeFormatItem = new MenuItem("Switch to 12-Hour Format");
+            timeFormatItem.addActionListener(e -> {
+                Platform.runLater(() -> {
+                    app.toggleTimeFormat();
+                    timeFormatItem.setLabel(app.is24HourFormat() ? "Switch to 12-Hour Format" : "Switch to 24-Hour Format");
+                });
+            });
+            
             MenuItem startupItem = new MenuItem("Start with Windows");
             startupItem.addActionListener(e -> toggleStartup());
             
@@ -47,6 +55,8 @@ public class SystemTrayManager {
             });
             
             popup.add(opacityMenu);
+            popup.addSeparator();
+            popup.add(timeFormatItem);
             popup.addSeparator();
             popup.add(startupItem);
             popup.addSeparator();
@@ -70,19 +80,19 @@ public class SystemTrayManager {
                 Files.delete(shortcutPath);
             } else {
                 // Create shortcut using PowerShell
-                String jarPath = new File(DesktopClock.class.getProtectionDomain()
-                    .getCodeSource().getLocation().toURI()).getPath();
+                String exePath = new File(DesktopClock.class.getProtectionDomain()
+                    .getCodeSource().getLocation().toURI()).getPath()
+                    .replace("desktop-clock-1.0.0.jar", "DesktopClock.exe");
                 
                 String psCommand = String.format(
                     "$WshShell = New-Object -ComObject WScript.Shell; " +
                     "$Shortcut = $WshShell.CreateShortcut('%s'); " +
-                    "$Shortcut.TargetPath = 'javaw'; " +
-                    "$Shortcut.Arguments = '-jar \"%s\"'; " +
+                    "$Shortcut.TargetPath = '%s'; " +
                     "$Shortcut.WorkingDirectory = '%s'; " +
                     "$Shortcut.Save()",
                     shortcutPath.toString(),
-                    jarPath,
-                    new File(jarPath).getParent()
+                    exePath,
+                    new File(exePath).getParent()
                 );
                 
                 Runtime.getRuntime().exec(new String[]{"powershell", "-Command", psCommand});

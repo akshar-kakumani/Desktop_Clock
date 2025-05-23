@@ -19,7 +19,9 @@ import java.time.format.DateTimeFormatter;
 public class DesktopClock extends Application {
     private double xOffset = 0;
     private double yOffset = 0;
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private static final DateTimeFormatter TIME_FORMATTER_24H = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private static final DateTimeFormatter TIME_FORMATTER_12H = DateTimeFormatter.ofPattern("hh:mm:ss a");
+    private boolean is24HourFormat = false;
     private Label timeLabel;
     private Stage primaryStage;
 
@@ -98,11 +100,20 @@ public class DesktopClock extends Application {
     private void startClock() {
         System.out.println("Starting clock...");
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            timeLabel.setText(LocalTime.now().format(TIME_FORMATTER));
+            timeLabel.setText(LocalTime.now().format(is24HourFormat ? TIME_FORMATTER_24H : TIME_FORMATTER_12H));
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
         System.out.println("Clock started.");
+    }
+
+    public void toggleTimeFormat() {
+        is24HourFormat = !is24HourFormat;
+        timeLabel.setText(LocalTime.now().format(is24HourFormat ? TIME_FORMATTER_24H : TIME_FORMATTER_12H));
+    }
+
+    public boolean is24HourFormat() {
+        return is24HourFormat;
     }
 
     public void setOpacity(double opacity) {

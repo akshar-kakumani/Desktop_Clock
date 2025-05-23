@@ -15,6 +15,7 @@ import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import javafx.scene.image.Image;
 
 public class DesktopClock extends Application {
     private double xOffset = 0;
@@ -29,6 +30,14 @@ public class DesktopClock extends Application {
     public void start(Stage primaryStage) {
         System.out.println("Application starting...");
         this.primaryStage = primaryStage;
+        
+        // Set application icon
+        try {
+            Image icon = new Image(getClass().getResourceAsStream("/icon.png"));
+            primaryStage.getIcons().add(icon);
+        } catch (Exception e) {
+            System.err.println("Failed to load icon: " + e.getMessage());
+        }
         
         // Create the time label
         timeLabel = new Label();

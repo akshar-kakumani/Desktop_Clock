@@ -42,8 +42,15 @@ public class DesktopClock extends Application {
         
         // Configure the stage
         primaryStage.initStyle(StageStyle.TRANSPARENT);
-        primaryStage.setAlwaysOnTop(true);
+        primaryStage.setAlwaysOnTop(false);
         primaryStage.setScene(scene);
+        
+        // Make window stay at bottom
+        Platform.runLater(() -> {
+            primaryStage.toBack();
+            primaryStage.setIconified(false);
+            primaryStage.setAlwaysOnTop(false);
+        });
         
         // Add mouse event handlers for dragging
         root.setOnMousePressed(event -> {

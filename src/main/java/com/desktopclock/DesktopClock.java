@@ -30,14 +30,22 @@ public class DesktopClock extends Application {
         
         // Create the time label
         timeLabel = new Label();
-        timeLabel.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 48px; -fx-text-fill: white;");
+        timeLabel.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 200px; -fx-text-fill: white;");
         
         // Create the root container
         StackPane root = new StackPane(timeLabel);
-        root.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-background-radius: 10;");
+        root.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-background-radius: 0;");
         
-        // Create the scene
-        Scene scene = new Scene(root, 300, 100);
+        // Get screen dimensions
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        
+        // Calculate margins (1mm = ~3.78 pixels at 96 DPI)
+        double margin = 3.78;
+        
+        // Create the scene with screen dimensions minus margins
+        Scene scene = new Scene(root, 
+            screenBounds.getWidth() - (2 * margin), 
+            screenBounds.getHeight() - (2 * margin));
         scene.setFill(Color.TRANSPARENT);
         
         // Configure the stage
@@ -69,8 +77,9 @@ public class DesktopClock extends Application {
         // Start the clock update
         startClock();
         
-        // Position the window in the top-right corner
-        positionWindow();
+        // Position the window with margins
+        primaryStage.setX(margin);
+        primaryStage.setY(margin);
         
         // Show the stage
         System.out.println("Showing primary stage...");

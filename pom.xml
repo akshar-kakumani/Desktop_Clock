@@ -13,6 +13,8 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <javafx.version>17.0.2</javafx.version>
+        <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
+        <launch4j.version>2.3.3</launch4j.version>
     </properties>
 
     <dependencies>
@@ -42,9 +44,12 @@
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.8</version>
+                <version>${javafx.maven.plugin.version}</version>
                 <configuration>
                     <mainClass>com.desktopclock.DesktopClock</mainClass>
+                    <launcher>desktop-clock</launcher>
+                    <jlinkImageName>desktop-clock</jlinkImageName>
+                    <jlinkZipName>desktop-clock</jlinkZipName>
                 </configuration>
             </plugin>
             <plugin>
@@ -63,6 +68,44 @@
                                     <mainClass>com.desktopclock.DesktopClock</mainClass>
                                 </transformer>
                             </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <version>${launch4j.version}</version>
+                <executions>
+                    <execution>
+                        <id>l4j-gui</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                        <configuration>
+                            <headerType>gui</headerType>
+                            <outfile>target/DesktopClock.exe</outfile>
+                            <jar>target/${project.artifactId}-${project.version}.jar</jar>
+                            <errTitle>Desktop Clock</errTitle>
+                            <classPath>
+                                <mainClass>com.desktopclock.DesktopClock</mainClass>
+                            </classPath>
+                            <jre>
+                                <minVersion>17</minVersion>
+                                <path>./jre</path>
+                            </jre>
+                            <versionInfo>
+                                <fileVersion>1.0.0.0</fileVersion>
+                                <txtFileVersion>1.0.0.0</txtFileVersion>
+                                <fileDescription>Desktop Clock Application</fileDescription>
+                                <copyright>Your Name</copyright>
+                                <productVersion>1.0.0.0</productVersion>
+                                <txtProductVersion>1.0.0.0</txtProductVersion>
+                                <productName>Desktop Clock</productName>
+                                <internalName>desktopclock</internalName>
+                                <originalFilename>DesktopClock.exe</originalFilename>
+                            </versionInfo>
                         </configuration>
                     </execution>
                 </executions>

@@ -29,15 +29,13 @@ public class SystemTrayManager {
             
             PopupMenu popup = new PopupMenu();
             
-            MenuItem opacityMenu = new MenuItem("Opacity");
-            Menu opacitySubMenu = new Menu();
+            Menu opacityMenu = new Menu("Opacity");
             for (int i = 1; i <= 10; i++) {
                 MenuItem item = new MenuItem(i * 10 + "%");
                 final double opacity = i * 0.1;
                 item.addActionListener(e -> Platform.runLater(() -> app.setOpacity(opacity)));
-                opacitySubMenu.add(item);
+                opacityMenu.add(item);
             }
-            opacityMenu.setSubMenu(opacitySubMenu);
             
             MenuItem startupItem = new MenuItem("Start with Windows");
             startupItem.addActionListener(e -> toggleStartup());

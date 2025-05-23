@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.desktopclock</groupId>
   <artifactId>desktop-clock</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <build>
     <plugins>
       <plugin>
@@ -40,6 +40,16 @@
                   <mainClass>com.desktopclock.DesktopClock</mainClass>
                 </transformer>
               </transformers>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
+                </filter>
+              </filters>
             </configuration>
           </execution>
         </executions>
@@ -64,8 +74,12 @@
                 <mainClass>com.desktopclock.DesktopClock</mainClass>
               </classPath>
               <jre>
-                <minVersion>17</minVersion>
+                <minVersion>24</minVersion>
                 <path>./jre</path>
+                <opts>
+                  <opt>--module-path "%PATH_TO_FX%"</opt>
+                  <opt>--add-modules javafx.controls,javafx.fxml,javafx.graphics</opt>
+                </opts>
               </jre>
               <versionInfo>
                 <fileVersion>1.0.0.0</fileVersion>
@@ -85,11 +99,11 @@
     </plugins>
   </build>
   <properties>
-    <maven.compiler.target>17</maven.compiler.target>
-    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>24</maven.compiler.target>
+    <maven.compiler.source>24</maven.compiler.source>
     <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <javafx.version>17.0.2</javafx.version>
+    <javafx.version>24.0.1</javafx.version>
     <launch4j.version>2.3.3</launch4j.version>
   </properties>
 </project>

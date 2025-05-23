@@ -17,82 +17,59 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class DesktopClock extends Application {
-    private double xOffset = 0;
-    private double yOffset = 0;
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm:ss");
     private Label timeLabel;
     private Stage primaryStage;
 
     @Override
     public void start(Stage primaryStage) {
+        System.out.println("Application starting...");
         this.primaryStage = primaryStage;
-        
+
         // Create the time label
         timeLabel = new Label();
-        timeLabel.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 48px; -fx-text-fill: white;");
-        
+        timeLabel.setStyle("-fx-font-family: 'Segoe UI'; -fx-font-size: 180px; -fx-text-fill: white;");
+
         // Create the root container
         StackPane root = new StackPane(timeLabel);
-        root.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-background-radius: 10;");
-        
+        root.setStyle("-fx-background-color: rgba(0, 0, 0, 0.4);"); // Translucent black background
+
+        // Get screen size
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        double width = screenBounds.getWidth();
+        double height = screenBounds.getHeight();
+
         // Create the scene
-        Scene scene = new Scene(root, 300, 100);
+        Scene scene = new Scene(root, width, height);
         scene.setFill(Color.TRANSPARENT);
-        
+
         // Configure the stage
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setAlwaysOnTop(true);
         primaryStage.setScene(scene);
-        
-        // Add mouse event handlers for dragging
-        root.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        
-        root.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
-        
-        // Add right-click context menu
-        SystemTrayManager.setupSystemTray(this);
-        
+        primaryStage.setFullScreen(true);
+
         // Start the clock update
         startClock();
-        
-        // Position the window in the top-right corner
-        positionWindow();
-        
+
         // Show the stage
+        System.out.println("Showing primary stage...");
         primaryStage.show();
+        System.out.println("Primary stage shown.");
     }
-    
+
     private void startClock() {
+        System.out.println("Starting clock...");
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             timeLabel.setText(LocalTime.now().format(TIME_FORMATTER));
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+        System.out.println("Clock started.");
     }
-    
-    private void positionWindow() {
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        primaryStage.setX(screenBounds.getMaxX() - 320);
-        primaryStage.setY(20);
-    }
-    
-    public void setOpacity(double opacity) {
-        primaryStage.getScene().getRoot().setStyle(
-            String.format("-fx-background-color: rgba(0, 0, 0, %f); -fx-background-radius: 10;", opacity)
-        );
-    }
-    
-    public void exit() {
-        Platform.exit();
-    }
-    
+
     public static void main(String[] args) {
+        System.out.println("Launching application...");
         launch(args);
     }
 } 

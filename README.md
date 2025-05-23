@@ -17,7 +17,7 @@ A lightweight, always-on-top, translucent digital clock for Windows desktop. Thi
 
 ## Requirements
 
-- Java 17 or higher
+- Java 24 or higher
 - Maven 3.6 or higher
 - Windows operating system
 
@@ -39,7 +39,7 @@ The executable JAR file will be created in the `target` directory.
 2. Run the following command:
 
 ```bash
-java -jar target/desktop-clock-1.0-SNAPSHOT.jar
+java -jar target/desktop-clock-1.0.0.jar
 ```
 
 ## Usage

@@ -103,7 +103,7 @@ public class DesktopClock extends Application {
     }
     
     private void startClock() {
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             timeLabel.setText(LocalTime.now().format(is24HourFormat ? TIME_FORMATTER_24H : TIME_FORMATTER_12H));
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);

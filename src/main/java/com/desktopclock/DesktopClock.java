@@ -28,7 +28,6 @@ public class DesktopClock extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        System.out.println("Application starting...");
         this.primaryStage = primaryStage;
         
         // Set application icon
@@ -93,27 +92,21 @@ public class DesktopClock extends Application {
         primaryStage.setY(margin);
         
         // Show the stage
-        System.out.println("Showing primary stage...");
         primaryStage.show();
-        System.out.println("Primary stage shown.");
     }
     
     private void positionWindow() {
-        System.out.println("Positioning window...");
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setX(screenBounds.getMaxX() - 320); // 300 (width) + 20 (margin)
         primaryStage.setY(20); // 20 pixels from top
-        System.out.println("Window positioned at: " + primaryStage.getX() + ", " + primaryStage.getY());
     }
     
     private void startClock() {
-        System.out.println("Starting clock...");
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
             timeLabel.setText(LocalTime.now().format(is24HourFormat ? TIME_FORMATTER_24H : TIME_FORMATTER_12H));
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-        System.out.println("Clock started.");
     }
 
     public void toggleTimeFormat() {
@@ -126,7 +119,6 @@ public class DesktopClock extends Application {
     }
 
     public void setOpacity(double opacity) {
-        System.out.println("Setting opacity to: " + opacity);
         if (primaryStage != null) {
             primaryStage.setOpacity(opacity);
         }
@@ -137,7 +129,6 @@ public class DesktopClock extends Application {
     }
 
     public static void main(String[] args) {
-        System.out.println("Launching application...");
         launch(args);
     }
 } 

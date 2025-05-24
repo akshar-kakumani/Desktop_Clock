@@ -1,3 +1,4 @@
+// Desktop Clock Application - A lightweight time display tool
 package com.desktopclock;
 
 import javafx.application.Application;

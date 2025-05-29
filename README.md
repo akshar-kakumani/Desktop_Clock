@@ -17,7 +17,7 @@ A lightweight, always-on-top, translucent digital clock for Windows desktop. Thi
 
 ## Requirements
 
-- Java 24 or higher
+- Java 17 or higher
 - Maven 3.6 or higher
 - Windows operating system
 

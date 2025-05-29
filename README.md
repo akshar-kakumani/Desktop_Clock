@@ -1,64 +1,137 @@
 # Desktop Clock
 
-A lightweight, always-on-top, translucent digital clock for Windows desktop. This application provides a sleek and modern time display that seamlessly integrates with your desktop environment.
+A modern, customizable desktop clock application built with JavaFX. This application provides a sleek, always-on-top clock display with various customization options.
 
 ## Features
 
-- Digital time display in HH:MM:SS format
-- Modern, sleek font styling
-- Transparent/translucent background
-- Always-on-top behavior
-- Undecorated window (no title bar or borders)
-- System tray integration
-- Adjustable opacity
-- Windows startup integration
+- Always-on-top display
+- Customizable appearance:
+  - Font size
+  - Font color
+  - Background color
+  - Background opacity
+  - Font family
 - Draggable window
-- Minimal resource usage
+- System tray integration
+- Settings persistence
+- Modern, clean interface
 
 ## Requirements
 
 - Java 17 or higher
-- Maven 3.6 or higher
 - Windows operating system
 
-## Building the Application
+## Installation
 
-1. Clone the repository
-2. Navigate to the project directory
-3. Run the following Maven command to build the application:
+### Option 1: Using the Installer (Recommended)
 
-```bash
-mvn clean package
-```
+1. Download the latest `DesktopClockSetup.exe` from the releases
+2. Run the installer
+3. Follow the installation wizard
+4. Launch the application from the desktop shortcut or start menu
 
-The executable JAR file will be created in the `target` directory.
+### Option 2: Manual Installation
 
-## Running the Application
+1. Download the latest release JAR file
+2. Ensure you have Java 17 or higher installed
+3. Run the application using:
+   ```bash
+   java -jar DesktopClock.jar
+   ```
 
-1. Double-click the JAR file in the `target` directory, or
-2. Run the following command:
+## Building from Source
 
-```bash
-java -jar target/desktop-clock-1.0.0.jar
-```
+### Prerequisites
+
+- JDK 17 or higher
+- Maven 3.6 or higher
+- Inno Setup (for creating the installer)
+
+### Build Steps
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/DesktopClock.git
+   cd DesktopClock
+   ```
+
+2. Build the project:
+   ```bash
+   mvn clean package
+   ```
+
+3. Create the installer (optional):
+   ```bash
+   iscc installer.iss
+   ```
+
+The build process will:
+- Compile the source code
+- Package all dependencies
+- Create an executable JAR file
+- Generate a Windows executable
+- Create an installer (if Inno Setup is installed)
 
 ## Usage
 
-- The clock will appear in the top-right corner of your screen
-- Drag the clock to reposition it
-- Right-click the clock to access the system tray menu
-- Use the system tray menu to:
-  - Adjust opacity (10% to 100%)
-  - Toggle Windows startup
-  - Exit the application
+1. Launch the application
+2. The clock will appear on your desktop
+3. Right-click the clock to access the settings menu
+4. Drag the clock to position it anywhere on your screen
+5. Use the system tray icon to minimize/maximize the application
+
+## Customization
+
+The clock can be customized through the settings menu:
+- Adjust font size (12-72px)
+- Change font color
+- Modify background color
+- Set background opacity (0-100%)
+- Choose from various font families
 
 ## Development
 
-The project uses:
-- JavaFX for the user interface
-- Maven for dependency management and building
-- Java AWT for system tray integration
+### Project Structure
+
+```
+DesktopClock/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── desktopclock/
+│   │   │           ├── DesktopClock.java
+│   │   │           ├── ClockController.java
+│   │   │           └── Settings.java
+│   │   └── resources/
+│   │       ├── clock.fxml
+│   │       └── icon.png
+├── pom.xml
+├── installer.iss
+└── README.md
+```
+
+### Dependencies
+
+- JavaFX 17
+- JNA Platform (for system tray support)
+- Launch4j (for Windows executable creation)
+- Inno Setup (for installer creation)
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- JavaFX team for the excellent UI framework
+- JNA team for the system tray integration
+- All contributors and users of the application 

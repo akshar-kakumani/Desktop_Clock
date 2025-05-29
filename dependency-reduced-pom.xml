@@ -20,9 +20,10 @@
         <version>${javafx.maven.plugin.version}</version>
         <configuration>
           <mainClass>com.desktopclock.DesktopClock</mainClass>
-          <launcher>desktop-clock</launcher>
-          <jlinkImageName>desktop-clock</jlinkImageName>
-          <jlinkZipName>desktop-clock</jlinkZipName>
+          <options>
+            <option>--add-opens</option>
+            <option>java.base/java.lang=ALL-UNNAMED</option>
+          </options>
         </configuration>
       </plugin>
       <plugin>
@@ -62,6 +63,23 @@
         </executions>
       </plugin>
       <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/lib</outputDirectory>
+              <includeScope>runtime</includeScope>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>com.akathist.maven.plugins.launch4j</groupId>
         <artifactId>launch4j-maven-plugin</artifactId>
         <version>${launch4j.version}</version>
@@ -79,12 +97,13 @@
               <errTitle>Desktop Clock</errTitle>
               <classPath>
                 <mainClass>com.desktopclock.DesktopClock</mainClass>
+                <preCp>lib/*</preCp>
               </classPath>
               <jre>
-                <minVersion>24</minVersion>
+                <minVersion>17</minVersion>
                 <path>./jre</path>
                 <opts>
-                  <opt>--module-path "%PATH_TO_FX%"</opt>
+                  <opt>--module-path "lib"</opt>
                   <opt>--add-modules javafx.controls,javafx.fxml,javafx.graphics</opt>
                 </opts>
               </jre>
@@ -106,11 +125,11 @@
     </plugins>
   </build>
   <properties>
-    <maven.compiler.target>24</maven.compiler.target>
-    <maven.compiler.source>24</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
     <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <javafx.version>24.0.1</javafx.version>
+    <javafx.version>17.0.2</javafx.version>
     <launch4j.version>2.3.3</launch4j.version>
   </properties>
 </project>

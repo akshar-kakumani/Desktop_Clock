@@ -51,7 +51,7 @@ A modern, customizable desktop clock application built with JavaFX. This applica
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/DesktopClock.git
+   git clone https://github.com/akshar-kakumani/Desktop_Clock.git
    cd DesktopClock
    ```
 

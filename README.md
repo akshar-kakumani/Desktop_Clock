@@ -4,13 +4,10 @@ A modern, customizable desktop clock application built with JavaFX. This applica
 
 ## Features
 
-- Always-on-top display
+- Always-on-bottom display
 - Customizable appearance:
-  - Font size
-  - Font color
-  - Background color
   - Background opacity
-  - Font family
+  - 12/24 hours clock switch
 - Draggable window
 - System tray integration
 - Settings persistence
